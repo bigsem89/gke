@@ -1,5 +1,15 @@
+resource "google_project_service" "compute" {
+  service = "compute.googleapis.com"
+}
+
+resource "google_project_service" "container" {
+  service = "container.googleapis.com"
+}
+
 resource "google_compute_network" "gke-net" {
-  name = "gke-net"
-  routing_mode = "REGIONAL"
-  auto_create_subnetworks = false
+  name                            = "gke-net"
+  routing_mode                    = "REGIONAL"
+  auto_create_subnetworks         = false
+  mtu                             = 1460
+  delete_default_routes_on_create = true
 }

@@ -1,10 +1,11 @@
 provider "google" {
-  # Configuration options
+  project = var.project
+  region  = var.location
 }
 
 terraform {
- backend "gcs" {
-   bucket  = "bigsem89"
-   prefix  = "terraform/state"
- }
+  backend "gcs" {
+    bucket = "bigsem89"
+    prefix = "terraform/state"
+  }
 }
