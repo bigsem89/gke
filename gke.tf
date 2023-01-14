@@ -8,11 +8,8 @@ resource "google_container_cluster" "cluster" {
   subnetwork = google_compute_subnetwork.private.self_link
   logging_service = "logging.googleapis.com/kubernetes"
   monitoring_service = "monitoring.googleapis.com/kubernetes"
+  networking_mode = "VPC_NATIVE"
 
-  node_config {
-    machine_type = "n1-standard-1"
-    //...
-  }
   addons_config {
     http_load_balancing {
       disabled = true
@@ -23,6 +20,9 @@ resource "google_container_cluster" "cluster" {
   }
   release_channel {
     channel = "REGULAR"
+  }
+  workload_identity_config {
+    workload_pool = "${var.project}.svc.id.goog"
   }
   ip_allocation_policy {
     cluster_secondary_range_name = "k8s-pod-range"
