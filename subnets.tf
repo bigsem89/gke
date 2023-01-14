@@ -1,8 +1,8 @@
 resource "google_compute_subnetwork" "private" {
-  ip_cidr_range = "10.0.0.0/18"
-  name          = "private"
-  network       = google_compute_network.gke-net.id
-  region        = var.location
+  ip_cidr_range            = "10.0.0.0/18"
+  name                     = "private"
+  network                  = google_compute_network.gke-net.id
+  region                   = var.location
   private_ip_google_access = true
 
   secondary_ip_range {

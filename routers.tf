@@ -1,7 +1,7 @@
 resource "google_compute_router" "router" {
   name    = "router"
   network = google_compute_network.gke-net.id
-  region = var.location
+  region  = var.location
 }
 
 resource "google_compute_router_nat" "nat" {
@@ -9,6 +9,8 @@ resource "google_compute_router_nat" "nat" {
   nat_ip_allocate_option             = "MANUAL_ONLY"
   router                             = google_compute_router.router.name
   source_subnetwork_ip_ranges_to_nat = "LIST_OF_SUBNETWORKS"
+  project = var.project
+  region = var.location
 
   subnetwork {
     name                    = google_compute_subnetwork.private.id
@@ -18,7 +20,7 @@ resource "google_compute_router_nat" "nat" {
 }
 
 resource "google_compute_address" "nat" {
-  name = "nat"
+  name         = "nat"
   address_type = "EXTERNAL"
   network_tier = "PREMIUM"
 }
