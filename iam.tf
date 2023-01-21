@@ -19,13 +19,13 @@ resource "google_project_iam_binding" "compute_admin" {
     "serviceAccount:${google_service_account.kubernetes.email}",
   ]
 }
-resource "google_project_iam_binding" "serviceusage_admin" {
-  project = var.project
-  role    = "roles/serviceusage.admin"
-  members = [
-    "serviceAccount:${google_service_account.kubernetes.email}",
-  ]
-}
+#resource "google_project_iam_binding" "serviceusage_admin" {
+#  project = var.project
+#  role    = "roles/serviceusage.admin"
+#  members = [
+#    "serviceAccount:${google_service_account.kubernetes.email}",
+#  ]
+#}
 resource "google_project_iam_binding" "iam_serviceAccountUser" {
   project = var.project
   role    = "roles/iam.serviceAccountUser"
