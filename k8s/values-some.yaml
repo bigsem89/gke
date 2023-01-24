@@ -5,3 +5,5 @@ prometheus:
               serviceMonitorNamespaceSelector:
                      matchLabels:
                             prometheus: "true"
+coreDns:
+  enabled: false

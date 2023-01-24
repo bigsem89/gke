@@ -4,7 +4,7 @@ resource "helm_release" "kube-prometheus-stack" {
   name       = "kube-prometheus-stack"
   dependency_update = true
   cleanup_on_fail = true
-  namespace = "monitoring"
+  namespace = kubernetes_namespace.monitoring.metadata.name
   repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "kube-prometheus-stack"
   version = "44.3"#"19.3"
