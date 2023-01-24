@@ -15,7 +15,17 @@ provider "helm" {
   }
 }
 
+provider "kubernetes" {
+  config_path    = "~/.kube/config"
+}
+
 terraform {
+  required_providers {
+    helm = {
+      source  = "hashicorp/helm"
+      version = "2.8.0"
+    }
+  }
   backend "gcs" {
     bucket = "bigsem89"
     prefix = "terraform/state"

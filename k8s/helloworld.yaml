@@ -4,6 +4,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: hello-kubernetes
+  namespace: myapp
 spec:
   replicas: 2
   selector:
@@ -33,6 +34,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  namespace: myapp
   name: hello-kubernetes
   annotations:
     cloud.google.com/neg: '{"ingress": true}'
@@ -50,6 +52,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: hello-kubernetes
+  namespace: myapp
   labels:
     app: hello-kubernetes
   annotations:

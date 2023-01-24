@@ -1,0 +1,17 @@
+kind: Service
+apiVersion: v1
+metadata:
+  namespace: myapp
+  name: prometheus-example-app
+  labels:
+    app.kubernetes.io/name: prometheus-example-app
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: prometheus-example-app
+  ports:
+  - name: web
+    port: 8080
+    targetPort: 8080

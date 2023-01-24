@@ -1,0 +1,7 @@
+prometheus:
+       prometheusSpec:
+              serviceMonitorSelectorNilUsesHelmValues: false
+              podMonitorSelectorNilUsesHelmValues: false
+              serviceMonitorNamespaceSelector:
+                     matchLabels:
+                            prometheus: "true"
