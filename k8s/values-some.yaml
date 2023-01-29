@@ -1,9 +1,17 @@
 prometheus:
-       prometheusSpec:
-              serviceMonitorSelectorNilUsesHelmValues: false
-              podMonitorSelectorNilUsesHelmValues: false
-              serviceMonitorNamespaceSelector:
-                     matchLabels:
-                            prometheus: "true"
+  prometheusSpec:
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorNamespaceSelector:
+      matchLabels:
+        prometheus: "true"
 coreDns:
   enabled: false
+alertmanager:
+  enabled: true
+  alertmanagerSpec:
+    useExistingSecret: true
+    secrets:
+      - alertmanager-kube-prometheus-stack-alertmanager
+
+

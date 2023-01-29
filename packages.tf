@@ -1,10 +1,19 @@
 
+data "kubernetes_secret" "smtp" {
+  metadata {
+    namespace = "monitoring"
+    name = "alertmanager-smtp-credentials"
+  }
+}
 
 resource "helm_release" "kube-prometheus-stack" {
+  provisioner "local-exec" {
+    command = "helm repo update"
+  }
   name       = "kube-prometheus-stack"
   dependency_update = true
   cleanup_on_fail = true
-  namespace = kubernetes_namespace.monitoring.metadata.name
+  namespace = "monitoring"
   repository = "https://prometheus-community.github.io/helm-charts"
   chart      = "kube-prometheus-stack"
   version = "44.3"#"19.3"
@@ -12,10 +21,7 @@ resource "helm_release" "kube-prometheus-stack" {
   wait_for_jobs = true
   values = [file("k8s/values-some.yaml")]
 
-  depends_on = [
-    google_container_cluster.cluster,
-    kubernetes_namespace.monitoring
-  ]
+  depends_on = [ data.kubernetes_secret.smtp, google_container_cluster.cluster, kubernetes_namespace.monitoring ]
 }
 
 resource "kubernetes_namespace" "myapp" {
